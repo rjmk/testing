@@ -3,7 +3,7 @@
 QUnit is a javascript framework that you can use to test software as you build it. Learning how to use qunit so that you can test software as you build it will save you time in the long run. Testing will ensure that you only write the least amount of code needed to get your software to do what it needs to do. It will also save you  having to constantly backtrack and fix things once your software starts growing in complexity.
 
 ##Step 1: Set Up the Boilerplate
-Let's set up with some boilerplate from the [qunit website](www.qunitjs.com). Create a new directory for your testing adventures, and create a file called (for example) 'tests.html' with the following content:
+Let's set up with some boilerplate from the [qunit website](www.qunitjs.com). Create a new directory for your testing adventures, and create a file called (for example) `tests.html` with the following content:
 
 ```
 <!DOCTYPE html>
@@ -23,9 +23,9 @@ Let's set up with some boilerplate from the [qunit website](www.qunitjs.com). Cr
 ```
 
 ##Step 2: Set up the sample test
-Create a new file called tests.js (if you call it something different you have to change the reference to it on line 12 of the boilerplate).
+Create a new file called `tests.js` (if you call it something different you will have to change the reference to it on line 12 of the boilerplate).
 
-Inside test.js copy and paste the following code:
+Inside `test.js` copy and paste the following code:
 
 ```javascript
 test("this bit should describe, to a human, what the test is for", function() {
@@ -33,16 +33,16 @@ test("this bit should describe, to a human, what the test is for", function() {
 });
 ```
 
-Equal checks that two objects are equal to each other. If you save this and load your tests.html file in a browser, you should see a basic passing test. Something that will be very important for our testing is whether equal uses '==' (with type coercion), or '===' (without type coercion). Let's check which is the case by editing our 'tests.js' file.
+Equal checks that two objects are equal to each other. If you save this and load your tests.html file in a browser, you should see a basic passing test. Something that will be very important for our testing is whether equal uses `==` (with type coercion), or `===` (without type coercion). Let's check which is the case by editing our `tests.js` file.
 
 Edit the second line of your test to read
 ```javascript
 equal('1', 1)
 ```
 
-Will this be true if 'equal' uses '=='? What about '==='? Reload your page and check to see whether it passes or not.
+Will this be true if `equal` uses `==`? What about `===`? Reload your page and check to see whether it passes or not.
 
-If you want to use the other sort of equality, you can use a different function called 'ok', which will make the test function it's inside pass if its first parameter is true. You can then use the equality you want by hand inside that parameter, like this:
+If you want to use the other sort of equality, you can use a different function called `ok`, which will make the test function it's inside pass if its first parameter is true. You can then use the equality you want by hand inside that parameter, like this:
 
 ```javascript
 test('this is a strict test', function(){
@@ -50,7 +50,7 @@ test('this is a strict test', function(){
 });
 ```
 
-'equal' and 'ok' are known as assertions. QUnit provides a variety of these functions to help with testing. If every assertion inside a test function call returns true, so does the overall. Here is [a list of all the different assertions QUnit provides](http://api.qunitjs.com/category/assert/). Try putting one passing and one failing assertion in your test and see QUnit's output.
+`equal` and `ok` are known as assertions. QUnit provides a variety of these functions to help with testing. If every assertion inside a test function call returns true, so does the overall. Here is [a list of all the different assertions QUnit provides](http://api.qunitjs.com/category/assert/). Try putting one passing and one failing assertion in your test and see QUnit's output.
 
 ## Step 3: Write a Test and Fail
 
@@ -60,7 +60,7 @@ We are going to write a test to check that the header shows up on the page.
 
 1. The first line should explain what the test does for future reference
 	```javascript
-	 test("check that the header exist'", function() {
+	 test("check that the header exists", function() {
  	```
 
 2. The next line sets a variable that you can then refer to in line 3. this variable should be the location of the thing you want to test.
