@@ -10,7 +10,7 @@ To get set up go to [qunitjs.com](http://qunitjs.com/) and copy the 14 lines of 
 ##Important
 Make sure to add 'http:' to the begining of the urls on line 6 and 11 otherwise it won't work. 
 
-##Step 2: Set up teh sample test
+##Step 2: Set up the sample test
 Create a new file called test.js (if you call it something different you have to change the refernce to it on line 12 of the boilerplate).
 
 Inside test.js copy and paste the sample test from the Qunit homepage.
@@ -19,16 +19,21 @@ Inside test.js copy and paste the sample test from the Qunit homepage.
 
 To keep things simple remove everything inessential to the test so that it just looks like:
 
->test( "this bit should describe, to a human, what the test is for", function() {
->  assert.ok( 1 == "1");
->});
+```javascript
+test( "this bit should describe, to a human, what the test is for", function() {
+assert.ok( 1 == "1");
+});
+```
 
 Then change:
-> assert.ok( 1 == "1", "Passed!" );
+```javascript
+assert.ok( 1 == "1", "Passed!" );
+```
 
 to:
-
->  equal( 1, "1");
+```javascript
+equal( 1, "1");
+```
 
 'equal' and 'assert.ok' are two different types of tests (in Qunit tests are called assertions). 'equal' and 'asssert.ok' pretty much do the same thing. I recommed using the 'equal' assertion instead of 'assert.ok' to keep things simple for now. Here are [a list of all the different kinds of assertions](http://api.qunitjs.com/category/assert/) you can use once you get the hang of how to write tests.
 
@@ -38,30 +43,38 @@ It is important to write a test and make sure it fail before you do anything els
 
 We are going to write a test to check that the header shows up on the page.
 
-1. The first line should explain what teh tests does for future reference
-> test("check that the header exist'", function() {
+1. The first line should explain what the test does for future reference
+	```javascript
+	 test("check that the header exist'", function() {
+ 	```
 
 2. The next line sets a variable that you can then refer to in line 3. this variable should be the location of the thing you want to test.
-> var title= document.getElementById('heading').innerHTML;
+	```javascript
+	var title= document.getElementById('heading').innerHTML;
+	```
 
-3. The third line then tests the variable created in line two against what you expect it to be. The equal assetion will only pass the test if the first thing inside the brackets matches the necxt thing after the comma.
-> equal(title, "This is a header");})
+3. The third line then tests the variable created in line two against what you expect it to be. The equal assetion will only pass the test if the first thing inside the brackets matches the next thing after the comma.
+    ```javascript
+    equal(title, "This is a header");})
+    ```
 
 When you put it all together it shoudl look like this:
->test("check that the header exist'", function() {
->    var title= document.getElementById('heading').innerHTML;
->    equal(title, "This is a header");
->})
+```javascript
+test("check that the header exist'", function() {
+    var title= document.getElementById('heading').innerHTML;
+    equal(title, "This is a header");
+})
+```
 
-When you load the page in teh browser (the page you saved teh boiler plate to, not test.js) it shoudl look like this.
+When you load the page in the browser (the page you saved the boiler plate to, not test.js) it should look like this.
 
 ![Fail test](http://i.imgur.com/Y2R8Ow9.png)
 
-The test will fail because we have not added the header to the page. thsi is exactly what is suppose to happen. Thsi is what the test explains in the red section.
+The test will fail because we have not added the header to the page. This is exactly what is suppose to happen. This is what the test explains in the red section.
 
 ##Step 4: Pass Your Test
 
-Add a h1 tag with an Id of 'header' that says "This is a header" to then page and rerun the test. 
+Add a h1 tag with an id of 'header' that says "This is a header" to the page and rerun the test. 
 
 > <h1 id='heading'>This is a header</h1>
 
