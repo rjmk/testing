@@ -2,7 +2,11 @@
 
 QUnit is a javascript framework that you can use to test software as you build it. Learning how to use QUnit so that you can test software as you build it will save you time in the long run. Testing will ensure that you only write the least amount of code needed to get your software to do what it needs to do. It will also save you  having to constantly backtrack and fix things once your software starts growing in complexity.
 
-### 0: What are testing and TDD and why should I care?
+## How to use this README
+
+Testing turns out to be quite complicated! There's a lot of information that's useful to know. Unfortunately, trying to read all that information at once is not a good way to learn it. This README has some important information that should be ignored if it's not immediately useful and / or it is your first time reading it. Currently, this includes the 'Under The Hood' sections, which talk a little about how QUnit works on a code level. It's quite useful as it will reduce your confusion as you continue to work with QUnit, but is safely ignored on a first readthrough. Get used to mucking around with QUnit a bit first.
+
+## 0: What are testing and TDD and why should I care?
 
 Testing frameworks allow you to check the functionality of every part of your website automatically, without going through everything yourself. As your website and its functionality grows, the number of different ways it can be used grows rapidly. If a user does everything on your website once and your website has three things to do, there are six different sequences in which you can do them. If you have five things to do, there are 120 different sequences! Even if you can't use the functionality on your website in a completely arbitrary order, it will quickly become impractical to check every user flow remains functional after every update. Writing a suite of tests allows us to specify the tests once, and run them as often as we like.
 
@@ -62,9 +66,17 @@ test('this is a strict test', function(){
 
 `equal` and `ok` are known as assertions. QUnit provides a variety of these functions to help with testing. If every assertion inside a test function call returns true, so does the overall. Here is [a list of all the different assertions QUnit provides](http://api.qunitjs.com/category/assert/). Try putting one passing and one failing assertion in your test and see QUnit's output.
 
+### Under The Hood: Side Effects & Return Values
+
+Notice that the callback function (the second parameter provided to test) has no `return` keyword. That means that it will return `undefined`, no matter what the assertions (`ok`, `equal`, etc.) do. So clearly `test` isn't doing anything with the return value of the callback function! How do the assertions provide the test function with the information it needs then?
+
+Every time test is called, it creates a new object where the results of assertions are kept. Assertions then push their results (which normally include boolean values, the expected result and the actual result) to this object. The test then checks this object to see if everything is OK. Assertions causing changes to the outside world (this object in the scope of the test function) is known as them having 'side effects'. Subjects which have no side effects are known as 'pure functions'. They can still be useful as long as they return an interesting result.
+
+It's worth noting that this means that assert cannot be called outside of a test function: it will be looking for an object that doesn't exist!
+
 ## Step 3: Write a Test and Fail
 
-It is important to write a test and make sure it fail before you do anything else. If you have seen a test fail then you know that the test works. When you write code to pass the test you can rest assured that the test is doing its job.
+As mentioned above, you should write your test *first* and make it pass *second*. There are several good reasons for this. The first and most important is for creating specifications as mentioned above. It also means that your test is useful! If you write a test that should only pass once you implement some new functionality, you want to see it fail! If it doesn't, you aren't testing anything, and even broken code will pass.
 
 We are going to write a test to check that the header shows up on the page.
 
@@ -73,17 +85,17 @@ We are going to write a test to check that the header shows up on the page.
 	 test("check that the header exists", function() {
  	```
 
-2. The next line sets a variable that you can then refer to in line 3. this variable should be the location of the thing you want to test.
+2. The next line sets a variable that you can then refer to in line 3. We are looking for an element with the ID 'heading', and storing its text in the variable.
 	```javascript
-	var title= document.getElementById('heading').innerHTML;
+	var title = document.getElementById('heading').innerHTML;
 	```
 
-3. The third line then tests the variable created in line two against what you expect it to be. The equal assetion will only pass the test if the first thing inside the brackets matches the next thing after the comma.
+3. The third line then tests the variable created in line two against what you expect it to be. The equal assertion will only pass if the first parameter matches the second.
     ```javascript
     equal(title, "This is a header");})
     ```
 
-When you put it all together it shoudl look like this:
+When you put it all together it should look like this:
 ```javascript
 test("check that the header exist'", function() {
     var title= document.getElementById('heading').innerHTML;
@@ -97,7 +109,12 @@ When you load the page in the browser (the page you saved the boiler plate to, n
 
 The test will fail because we have not added the header to the page. This is exactly what is suppose to happen. This is what the test explains in the red section.
 
-##Step 4: Pass Your Test
+### Fictional Q & A
+Q: But this test only checks that there is an item with a certain ID that has a certain text. What if I put that ID a span tag? What if I decide I want a different title?
+
+A: This goes back to section 0. You're right our test could break in all those ways. For now we're making some reasonable assumptions. By adding more tests and tweaking the ones we have, we can make our application much stronger and catch more possible failure points. For now, let's keep it simple so we don't have to deal with traversing the DOM too much (not the easiest thing without jQuery).
+
+## Step 4: Pass Your Test
 
 Add a h1 tag with an id of 'header' that says "This is a header" to the page and rerun the test.
 
